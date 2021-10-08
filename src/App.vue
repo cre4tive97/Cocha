@@ -9,17 +9,8 @@
 </template>
 
 <script>
-import { ref } from "vue";
-
 export default {
   name: "App",
-  setup() {
-    let navMenu = ref(["Home", "Search"]);
-
-    return {
-      navMenu,
-    };
-  },
 };
 </script>
 
@@ -34,6 +25,7 @@ export default {
 .app__header {
   padding: 16px 8px;
   background: #005ecb;
+  color: white;
 }
 .app__navbar {
   display: flex;
