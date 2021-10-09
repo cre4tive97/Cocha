@@ -1,21 +1,19 @@
 <template>
   <div class="main__container">
-    <div
-      v-if="$store.state.sortedByCity.korea !== undefined"
-      class="main__todayCovid"
-    >
+    <div class="main__todayCovid">
       <h1 class="main__todayCovid__title">오늘 한국은..</h1>
       <h4 class="main__todayCovid__content">
-        신규 확진자 : {{ $store.state.sortedByCity.korea.newCase }}명
+        신규 확진자 : {{ korea.newCase }}명
       </h4>
     </div>
     <Card />
   </div>
 </template>
 <script>
-import { onMounted } from "vue";
-import { useStore } from "vuex";
+import { ref, onMounted } from "vue";
+// import { useStore } from "vuex";
 import Card from "../components/Card.vue";
+import axios from "axios";
 
 export default {
   name: "Main",
@@ -23,11 +21,21 @@ export default {
     Card,
   },
   setup() {
-    let store = useStore();
+    // let store = useStore();
+
+    let korea = ref({});
     onMounted(() => {
-      store.dispatch("getNationalCounter");
-      store.dispatch("getSortedByCity");
+      axios
+        .get(
+          "https://api.corona-19.kr/korea/country/new/?serviceKey=xUMn8d6i7mpuVzcALSGFfKrqEZo2lsRIY"
+        )
+        .then((result) => {
+          korea.value = result.data.korea;
+        });
     });
+    return {
+      korea,
+    };
   },
 };
 </script>
