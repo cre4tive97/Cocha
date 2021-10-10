@@ -1,0 +1,85 @@
+<template>
+  <div class="sidebar">
+    <div class="sidebar__sort">
+      <h1 class="sidebar__sort__title" @click="sortBtnState = !sortBtnState">
+        정렬
+      </h1>
+      <div class="sidebar__sortBtnGroup" v-show="sortBtnState">
+        <button class="btn" @click="$emit('sortedByNewCase')">
+          신규 확진자
+        </button>
+        <button class="btn" @click="$emit('sortedByTotalCase')">
+          전체 확진자
+        </button>
+        <button class="btn" @click="$emit('sortedByRecovered')">
+          전체 회복자
+        </button>
+        <button class="btn" @click="$emit('sortedByDeath')">
+          전체 사망자
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import { ref } from "vue";
+export default {
+  name: "Sidebar",
+
+  setup() {
+    let sortBtnState = ref(false);
+    return {
+      sortBtnState,
+    };
+  },
+};
+</script>
+
+<style>
+.sidebar {
+  position: fixed;
+  bottom: 4rem;
+  left: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(16px);
+  width: 30%;
+  max-width: 400px;
+  min-width: 200px;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  z-index: 5;
+}
+.sidebar__sort {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar__sort__title {
+  font-size: 1.5rem;
+
+  font-weight: 600;
+}
+.sidebar__sort__title:hover {
+  cursor: pointer;
+}
+.sidebar__sort {
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+.sidebar__sortBtnGroup {
+  display: flex;
+  flex-direction: column;
+}
+.btn {
+  border-style: none;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.8);
+  margin: 4px 0;
+}
+.btn:hover {
+  cursor: pointer;
+}
+</style>

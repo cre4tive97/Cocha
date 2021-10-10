@@ -1,25 +1,25 @@
 <template>
   <div class="card">
-    <div class="btn-group">
-      <button class="btn" @click="sortedByNewCase">
-        신규 확진자
-      </button>
-      <button class="btn" @click="sortedByTotalCase">
-        전체 확진자
-      </button>
-      <button class="btn" @click="sortedByRecovered">
-        전체 회복자
-      </button>
-      <button class="btn" @click="sortedByDeath">전체 사망자</button>
-    </div>
     <div class="card-chart">
       <vue3-chart-js v-bind="{ ...pieChart }" :key="componentKey" />
     </div>
-    <button class="chart__setting"><i class="fas fa-cog"></i></button>
+    <button class="chart__setting" @click="sidebarState = !sidebarState">
+      <i class="fas fa-cog"></i>
+    </button>
+    <transition name="sidebarAnimation">
+      <Sidebar
+        v-show="sidebarState"
+        @sortedByNewCase="sortedByNewCase"
+        @sortedByTotalCase="sortedByTotalCase"
+        @sortedByRecovered="sortedByRecovered"
+        @sortedByDeath="sortedByDeath"
+      />
+    </transition>
   </div>
 </template>
 <script>
 import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
+import Sidebar from "./Sidebar.vue";
 import axios from "axios";
 // import { useStore } from "vuex";
 import { ref, onMounted } from "vue";
@@ -28,12 +28,14 @@ export default {
   name: "Card",
   components: {
     Vue3ChartJs,
+    Sidebar,
   },
 
   setup() {
     // const store = useStore();
     let country = ref([]);
     let componentKey = ref(0);
+    let sidebarState = ref(false);
     let datasets = ref([
       {
         backgroundColor: [
@@ -155,6 +157,7 @@ export default {
       sortedByTotalCase,
       sortedByRecovered,
       sortedByDeath,
+      sidebarState,
     };
   },
 };
@@ -163,7 +166,6 @@ export default {
 .card {
   width: 100%;
   height: 100%;
-  margin-bottom: 1rem;
   padding: 1rem 0;
   border-radius: 1rem;
   /* background: #eee; */
@@ -174,8 +176,7 @@ export default {
 }
 .card-chart {
   width: 60%;
-  min-width: 400px;
-  max-width: 800px;
+  min-width: 320px;
 }
 .chart__setting {
   position: fixed;
@@ -194,8 +195,24 @@ export default {
   transition: all 0.3s;
 }
 .chart__setting:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
   color: black;
   cursor: pointer;
+}
+.sidebarAnimation-enter-from {
+  opacity: 0;
+  transform: translateX(-200px);
+}
+.sidebarAnimation-enter-active,
+.sidebarAnimation-leave-active {
+  transition: all 0.5s;
+}
+.sidebarAnimation-enter-to {
+  opacity: 1;
+  transform: translateX(0px);
+}
+.sidebarAnimation-leave-to {
+  opacity: 0;
+  transform: translateX(-200px);
 }
 </style>
