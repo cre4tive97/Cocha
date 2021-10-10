@@ -1,18 +1,21 @@
 <template>
   <div class="card">
     <div class="btn-group">
-      <button class="sortedByNewCase" @click="sortedByNewCase">
+      <button class="btn" @click="sortedByNewCase">
         신규 확진자
       </button>
-      <button class="sortedByTotalCase" @click="sortedByTotalCase">
+      <button class="btn" @click="sortedByTotalCase">
         전체 확진자
       </button>
-      <button class="sortedByRecovered">전체 회복자</button>
-      <button class="sortedByDeath">전체 사망자</button>
+      <button class="btn" @click="sortedByRecovered">
+        전체 회복자
+      </button>
+      <button class="btn" @click="sortedByDeath">전체 사망자</button>
     </div>
     <div class="card-chart">
       <vue3-chart-js v-bind="{ ...pieChart }" :key="componentKey" />
     </div>
+    <button class="chart__setting"><i class="fas fa-cog"></i></button>
   </div>
 </template>
 <script>
@@ -64,21 +67,36 @@ export default {
       },
     });
 
-    console.log(country.value);
+    // sort buttons
     let sortedByNewCase = () => {
       datasets.value[0].data = [];
       country.value.forEach((a) => {
         datasets.value[0].data.push(stringNumberToInt(a.newCase));
       });
-      console.log(datasets.value);
       componentKey.value++;
     };
+
     let sortedByTotalCase = () => {
       datasets.value[0].data = [];
       country.value.forEach((a) => {
         datasets.value[0].data.push(stringNumberToInt(a.totalCase));
       });
-      console.log(datasets.value);
+      componentKey.value++;
+    };
+
+    let sortedByRecovered = () => {
+      datasets.value[0].data = [];
+      country.value.forEach((a) => {
+        datasets.value[0].data.push(stringNumberToInt(a.recovered));
+      });
+      componentKey.value++;
+    };
+
+    let sortedByDeath = () => {
+      datasets.value[0].data = [];
+      country.value.forEach((a) => {
+        datasets.value[0].data.push(stringNumberToInt(a.death));
+      });
       componentKey.value++;
     };
 
@@ -119,7 +137,7 @@ export default {
           let name = [];
           country.value.forEach((a, i) => {
             name[i] = a.countryName;
-            counter[i] = parseInt(a.newCase);
+            counter[i] = stringNumberToInt(a.newCase);
           });
           datasets.value[0].data = counter;
           pieChart.value.data.labels = name;
@@ -135,6 +153,8 @@ export default {
       stringNumberToInt,
       sortedByNewCase,
       sortedByTotalCase,
+      sortedByRecovered,
+      sortedByDeath,
     };
   },
 };
@@ -146,14 +166,36 @@ export default {
   margin-bottom: 1rem;
   padding: 1rem 0;
   border-radius: 1rem;
-  background: #eee;
+  /* background: #eee; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 0 25px rgba(0, 0, 0, 0.3); */
 }
 .card-chart {
   width: 60%;
+  min-width: 400px;
   max-width: 800px;
+}
+.chart__setting {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  border-style: none;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+.chart__setting:hover {
+  transform: scale(1.2);
+  color: black;
+  cursor: pointer;
 }
 </style>
