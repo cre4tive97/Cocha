@@ -26,6 +26,9 @@
       >
         지역
       </h1>
+      <div class="sidebar__region__selected" v-show="regionBtnState">
+        선택됨 :
+      </div>
       <div class="sidebar__region__content" v-show="regionBtnState">
         <div
           class="sidebar__region__content__name"
@@ -47,23 +50,30 @@
 import { ref, toRefs } from "vue";
 export default {
   name: "Sidebar",
+  emits: ["regionSelect"],
   props: {
     country: Array,
     datasets: Array,
   },
-  setup(props) {
+  setup(props, { emit }) {
     let sortBtnState = ref(false);
     let regionBtnState = ref(false);
     let { country, datasets } = toRefs(props);
     console.log(country.value);
     console.log(datasets.value);
+    let selectedRegionData = ref([]);
+    let selectedRegionCheck = ref(false);
     let regionClick = (e) => {
-      console.log(e.target);
+      selectedRegionData.value.push(e.target.childNodes[1].data);
+      console.log(selectedRegionData.value);
+      emit("regionSelect", selectedRegionData.value);
     };
     return {
       sortBtnState,
       regionBtnState,
       regionClick,
+      selectedRegionData,
+      selectedRegionCheck,
     };
   },
 };
@@ -149,5 +159,11 @@ export default {
   border-radius: 50%;
   background: red;
   margin-right: 4px;
+}
+.sidebar__region__selected {
+  margin: 0.3rem 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 </style>

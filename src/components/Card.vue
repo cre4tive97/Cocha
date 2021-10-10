@@ -15,6 +15,7 @@
         @sortedByTotalCase="sortedByTotalCase"
         @sortedByRecovered="sortedByRecovered"
         @sortedByDeath="sortedByDeath"
+        @regionSelect="regionSelect"
       />
     </transition>
   </div>
@@ -32,7 +33,6 @@ export default {
     Vue3ChartJs,
     Sidebar,
   },
-
   setup() {
     // const store = useStore();
     let country = ref([]);
@@ -104,6 +104,11 @@ export default {
       componentKey.value++;
     };
 
+    let regionSelect = () => {
+      pieChart.value.data.labels = [];
+      componentKey.value++;
+    };
+
     let stringNumberToInt = (stringNumber) => {
       return parseInt(stringNumber.replace(/,/g, ""));
     };
@@ -160,6 +165,7 @@ export default {
       sortedByRecovered,
       sortedByDeath,
       sidebarState,
+      regionSelect,
     };
   },
 };
