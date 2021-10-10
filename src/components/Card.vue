@@ -1,6 +1,15 @@
 <template>
   <div class="card">
-    <div class="btn-group"></div>
+    <div class="btn-group">
+      <button class="sortedByNewCase" @click="sortedByNewCase">
+        신규 확진자
+      </button>
+      <button class="sortedByTotalCase" @click="sortedByTotalCase">
+        전체 확진자
+      </button>
+      <button class="sortedByRecovered">전체 회복자</button>
+      <button class="sortedByDeath">전체 사망자</button>
+    </div>
     <div class="card-chart">
       <vue3-chart-js v-bind="{ ...pieChart }" :key="componentKey" />
     </div>
@@ -22,7 +31,7 @@ export default {
     // const store = useStore();
     let country = ref([]);
     let componentKey = ref(0);
-    let test = ref([
+    let datasets = ref([
       {
         backgroundColor: [
           "#A50E15",
@@ -44,7 +53,6 @@ export default {
           "#FCAD61",
           "#F781BF",
         ],
-        data: [],
       },
     ]);
 
@@ -52,9 +60,32 @@ export default {
       type: "doughnut",
       data: {
         labels: [],
-        datasets: test.value,
+        datasets: datasets.value,
       },
     });
+
+    console.log(country.value);
+    let sortedByNewCase = () => {
+      datasets.value[0].data = [];
+      country.value.forEach((a) => {
+        datasets.value[0].data.push(stringNumberToInt(a.newCase));
+      });
+      console.log(datasets.value);
+      componentKey.value++;
+    };
+    let sortedByTotalCase = () => {
+      datasets.value[0].data = [];
+      country.value.forEach((a) => {
+        datasets.value[0].data.push(stringNumberToInt(a.totalCase));
+      });
+      console.log(datasets.value);
+      componentKey.value++;
+    };
+
+    let stringNumberToInt = (stringNumber) => {
+      return parseInt(stringNumber.replace(/,/g, ""));
+    };
+
     onMounted(() => {
       axios
         .get(
@@ -87,16 +118,11 @@ export default {
           let counter = [];
           let name = [];
           country.value.forEach((a, i) => {
-            // pieChart.value.data.labels.push(a.countryName);
             name[i] = a.countryName;
             counter[i] = parseInt(a.newCase);
           });
-          test.value[0].data = counter;
+          datasets.value[0].data = counter;
           pieChart.value.data.labels = name;
-          console.log(country.value);
-          console.log(pieChart.value.data.labels);
-          console.log(pieChart.value.data.datasets);
-          console.log(test.value);
           componentKey.value++;
         });
     });
@@ -104,8 +130,11 @@ export default {
     return {
       pieChart,
       country,
-      test,
       componentKey,
+      datasets,
+      stringNumberToInt,
+      sortedByNewCase,
+      sortedByTotalCase,
     };
   },
 };
@@ -114,6 +143,7 @@ export default {
 .card {
   width: 100%;
   height: 100%;
+  margin-bottom: 1rem;
   padding: 1rem 0;
   border-radius: 1rem;
   background: #eee;
