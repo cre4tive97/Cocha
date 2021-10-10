@@ -1,7 +1,8 @@
 <template>
   <div class="card">
+    <div class="btn-group"></div>
     <div class="card-chart">
-      <vue3-chart-js v-bind="{ ...pieChart }" />
+      <vue3-chart-js v-bind="{ ...pieChart }" :key="componentKey" />
     </div>
   </div>
 </template>
@@ -20,17 +21,38 @@ export default {
   setup() {
     // const store = useStore();
     let country = ref([]);
+    let componentKey = ref(0);
+    let test = ref([
+      {
+        backgroundColor: [
+          "#A50E15",
+          "#016D2C",
+          "#00D8FF",
+          "#DD1B16",
+          "#790277",
+          "#983405",
+          "#8C96C6",
+          "#D0D1E6",
+          "#FC9272",
+          "#969696",
+          "#6AAED6",
+          "#78C679",
+          "#C994C7",
+          "#FFFFD3",
+          "#8C5109",
+          "#D73026",
+          "#FCAD61",
+          "#F781BF",
+        ],
+        data: [],
+      },
+    ]);
 
     const pieChart = ref({
-      type: "pie",
+      type: "doughnut",
       data: {
         labels: [],
-        datasets: [
-          {
-            backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16"],
-            data: [1],
-          },
-        ],
+        datasets: test.value,
       },
     });
     onMounted(() => {
@@ -62,17 +84,28 @@ export default {
           for (let i = 0; i < countries.length; i++) {
             country.value.push(result.data[countries[i]]);
           }
-          console.log(country.value);
-          country.value.forEach((a) => {
-            pieChart.value.data.labels.push(a.countryName);
+          let counter = [];
+          let name = [];
+          country.value.forEach((a, i) => {
+            // pieChart.value.data.labels.push(a.countryName);
+            name[i] = a.countryName;
+            counter[i] = parseInt(a.newCase);
           });
-          pieChart.value.data.datasets[0].data.push(2);
+          test.value[0].data = counter;
+          pieChart.value.data.labels = name;
+          console.log(country.value);
+          console.log(pieChart.value.data.labels);
+          console.log(pieChart.value.data.datasets);
+          console.log(test.value);
+          componentKey.value++;
         });
     });
 
     return {
       pieChart,
       country,
+      test,
+      componentKey,
     };
   },
 };
@@ -83,11 +116,14 @@ export default {
   height: 100%;
   padding: 1rem 0;
   border-radius: 1rem;
-  background: rgba(0, 0, 0, 0.1);
+  background: #eee;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
 }
 .card-chart {
-  max-width: 50%;
+  width: 60%;
+  max-width: 800px;
 }
 </style>
