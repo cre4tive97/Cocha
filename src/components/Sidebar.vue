@@ -19,17 +19,51 @@
         </button>
       </div>
     </div>
+    <div class="sidebar__region">
+      <h1
+        class="sidebar__region__title"
+        @click="regionBtnState = !regionBtnState"
+      >
+        지역
+      </h1>
+      <div class="sidebar__region__content" v-show="regionBtnState">
+        <div
+          class="sidebar__region__content__name"
+          v-for="(a, i) in country"
+          :key="i"
+          @click="regionClick"
+        >
+          <div
+            class="sidebar__region__content__color"
+            :style="{ backgroundColor: datasets[0].backgroundColor[i] }"
+          ></div>
+          {{ a.countryName }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import { ref } from "vue";
+import { ref, toRefs } from "vue";
 export default {
   name: "Sidebar",
-
-  setup() {
+  props: {
+    country: Array,
+    datasets: Array,
+  },
+  setup(props) {
     let sortBtnState = ref(false);
+    let regionBtnState = ref(false);
+    let { country, datasets } = toRefs(props);
+    console.log(country.value);
+    console.log(datasets.value);
+    let regionClick = (e) => {
+      console.log(e.target);
+    };
     return {
       sortBtnState,
+      regionBtnState,
+      regionClick,
     };
   },
 };
@@ -53,15 +87,20 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.sidebar__sort__title {
+.sidebar__sort__title,
+.sidebar__region__title {
   font-size: 1.5rem;
-
   font-weight: 600;
 }
-.sidebar__sort__title:hover {
+.sidebar__sort__title:hover,
+.sidebar__region__title:hover {
   cursor: pointer;
 }
 .sidebar__sort {
+  margin-bottom: 1rem;
+}
+.sidebar__sort,
+.sidebar__region {
   color: white;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 0.5rem;
@@ -76,10 +115,39 @@ export default {
   color: white;
   padding: 4px 8px;
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.5);
   margin: 4px 0;
+  transition: background 0.3s;
 }
 .btn:hover {
   cursor: pointer;
+  background: rgba(0, 0, 0, 0.8);
+}
+.sidebar__region__content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.sidebar__region__content__name {
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  margin: 4px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s;
+}
+.sidebar__region__content__name:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.8);
+}
+.sidebar__region__content__color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: red;
+  margin-right: 4px;
 }
 </style>

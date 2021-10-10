@@ -9,6 +9,8 @@
     <transition name="sidebarAnimation">
       <Sidebar
         v-show="sidebarState"
+        :datasets="datasets"
+        :country="country"
         @sortedByNewCase="sortedByNewCase"
         @sortedByTotalCase="sortedByTotalCase"
         @sortedByRecovered="sortedByRecovered"
