@@ -74,13 +74,14 @@ export default {
     let regionBtnState = ref(false);
 
     let { country, datasets } = toRefs(props);
+
     console.log(country.value);
     console.log(datasets.value);
+
     let regionClick = (e) => {
-      console.log(e.target.childNodes[0].style.backgroundColor);
       emit("regionSelect", {
-        name: e.target.childNodes[1].data.trim(),
-        color: e.target.childNodes[0].style.backgroundColor,
+        name: e.currentTarget.childNodes[1].data.trim(),
+        color: e.currentTarget.childNodes[0].style.backgroundColor.trim(),
       });
     };
 

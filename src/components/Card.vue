@@ -107,17 +107,7 @@ export default {
     };
 
     let regionSelect = (a) => {
-      let selectedData = a;
-      if (selectedRegionData.value.includes(selectedData) === false) {
-        selectedRegionData.value.push(selectedData);
-        console.log(selectedRegionData.value.includes(selectedData));
-      } else {
-        let removedSelectedRegionData = selectedRegionData.value.filter(
-          (el) => el.name !== a.name
-        );
-        console.log(removedSelectedRegionData);
-        selectedRegionData.value = removedSelectedRegionData;
-      }
+      selectedRegionData.value.push(a);
       componentKey.value++;
     };
 
