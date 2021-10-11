@@ -6,6 +6,7 @@
         신규 확진자 : {{ korea.newCase }}명
       </h4>
     </div>
+    <hr />
     <Card />
   </div>
 </template>

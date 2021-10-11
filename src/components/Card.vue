@@ -1,5 +1,6 @@
 <template>
   <div class="card">
+    <h2 class="card__chartName">{{ sortName[sortCounter] }}</h2>
     <div class="card-chart">
       <vue3-chart-js v-bind="{ ...pieChart }" :key="componentKey" />
     </div>
@@ -26,7 +27,7 @@ import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
 import Sidebar from "./Sidebar.vue";
 import axios from "axios";
 // import { useStore } from "vuex";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 
 export default {
   name: "Card",
@@ -40,6 +41,13 @@ export default {
     let componentKey = ref(0);
     let sidebarState = ref(false);
     let selectedRegionData = ref([]);
+    let sortName = ref([
+      "신규 확진자",
+      "전체 확진자",
+      "전체 회복자",
+      "전체 사망자",
+    ]);
+    let sortCounter = ref(0);
     let datasets = ref([
       {
         backgroundColor: [
@@ -64,6 +72,26 @@ export default {
         ],
       },
     ]);
+    let selectedDatasets = ref([
+      {
+        backgroundColor: [],
+        data: [],
+      },
+    ]);
+    watch(
+      selectedRegionData,
+      () => {
+        pieChart.value.data.labels = [];
+        selectedRegionData.value.forEach((a) => {
+          pieChart.value.data.labels.push(a.name);
+          selectedDatasets.value[0].backgroundColor = [a.color];
+        });
+        pieChart.value.data.datasets = selectedDatasets.value;
+        console.log(pieChart.value);
+        console.log(selectedDatasets.value[0]);
+      },
+      { deep: true }
+    );
 
     const pieChart = ref({
       type: "doughnut",
@@ -79,6 +107,7 @@ export default {
       country.value.forEach((a) => {
         datasets.value[0].data.push(stringNumberToInt(a.newCase));
       });
+      sortCounter.value = 0;
       componentKey.value++;
     };
 
@@ -87,6 +116,7 @@ export default {
       country.value.forEach((a) => {
         datasets.value[0].data.push(stringNumberToInt(a.totalCase));
       });
+      sortCounter.value = 1;
       componentKey.value++;
     };
 
@@ -95,6 +125,7 @@ export default {
       country.value.forEach((a) => {
         datasets.value[0].data.push(stringNumberToInt(a.recovered));
       });
+      sortCounter.value = 2;
       componentKey.value++;
     };
 
@@ -103,6 +134,7 @@ export default {
       country.value.forEach((a) => {
         datasets.value[0].data.push(stringNumberToInt(a.death));
       });
+      sortCounter.value = 3;
       componentKey.value++;
     };
 
@@ -118,6 +150,7 @@ export default {
         );
         selectedRegionData.value = filteredRegionData;
       }
+      componentKey.value++;
     };
 
     let stringNumberToInt = (stringNumber) => {
@@ -178,6 +211,9 @@ export default {
       sidebarState,
       regionSelect,
       selectedRegionData,
+      sortName,
+      sortCounter,
+      selectedDatasets,
     };
   },
 };
@@ -193,6 +229,10 @@ export default {
   flex-direction: column;
   align-items: center;
   /* box-shadow: 0 0 25px rgba(0, 0, 0, 0.3); */
+}
+.card__chartName {
+  font-size: 2rem;
+  font-weight: 300;
 }
 .card-chart {
   width: 60%;

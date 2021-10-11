@@ -27,7 +27,7 @@
         지역
       </h1>
       <div class="sidebar__region__selected" v-show="regionBtnState">
-        <p>선택됨 :</p>
+        <p v-show="selectedRegionData[0] !== undefined">선택됨 :</p>
         <div
           class="sidebar__region__content__name"
           v-for="(a, i) in selectedRegionData"
@@ -42,6 +42,7 @@
           {{ a.name }}
         </div>
       </div>
+      <hr v-show="selectedRegionData[0] !== undefined && regionBtnState" />
       <div class="sidebar__region__content" v-show="regionBtnState">
         <div
           class="sidebar__region__content__name"
@@ -60,7 +61,7 @@
   </div>
 </template>
 <script>
-import { ref, toRefs } from "vue";
+import { ref } from "vue";
 export default {
   name: "Sidebar",
   emits: ["regionSelect", "newCase", "totalCase", "recovered", "death"],
@@ -73,17 +74,11 @@ export default {
     let sortBtnState = ref(false);
     let regionBtnState = ref(false);
 
-    let { country, datasets } = toRefs(props);
-
-    console.log(country.value);
-    console.log(datasets.value);
-
     let regionClick = (e) => {
       emit("regionSelect", {
         name: e.currentTarget.childNodes[1].data.trim(),
         color: e.currentTarget.childNodes[0].style.backgroundColor.trim(),
       });
-      console.log(e.currentTarget.childNodes[0].style.backgroundColor.trim());
     };
 
     return {
