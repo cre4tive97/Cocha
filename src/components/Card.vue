@@ -106,9 +106,18 @@ export default {
       componentKey.value++;
     };
 
-    let regionSelect = (a) => {
-      selectedRegionData.value.push(a);
-      componentKey.value++;
+    let regionSelect = (payload) => {
+      let result = selectedRegionData.value.find(
+        (el) => el.name === payload.name
+      );
+      if (result === undefined) {
+        selectedRegionData.value.push(payload);
+      } else {
+        let filteredRegionData = selectedRegionData.value.filter(
+          (el) => el.name !== payload.name
+        );
+        selectedRegionData.value = filteredRegionData;
+      }
     };
 
     let stringNumberToInt = (stringNumber) => {

@@ -83,6 +83,7 @@ export default {
         name: e.currentTarget.childNodes[1].data.trim(),
         color: e.currentTarget.childNodes[0].style.backgroundColor.trim(),
       });
+      console.log(e.currentTarget.childNodes[0].style.backgroundColor.trim());
     };
 
     return {
@@ -151,7 +152,7 @@ export default {
 .sidebar__region__content {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 .sidebar__region__content__name {
