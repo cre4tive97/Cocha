@@ -48,7 +48,7 @@
           class="sidebar__region__content__name"
           v-for="(a, i) in country"
           :key="i"
-          @click="regionClick"
+          @click="(e) => regionClick(e, i)"
         >
           <div
             class="sidebar__region__content__color"
@@ -74,10 +74,11 @@ export default {
     let sortBtnState = ref(false);
     let regionBtnState = ref(false);
 
-    let regionClick = (e) => {
+    let regionClick = (e, i) => {
       emit("regionSelect", {
         name: e.currentTarget.childNodes[1].data.trim(),
         color: e.currentTarget.childNodes[0].style.backgroundColor.trim(),
+        number: i,
       });
     };
 

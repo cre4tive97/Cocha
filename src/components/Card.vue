@@ -78,13 +78,17 @@ export default {
         data: [],
       },
     ]);
+
     watch(
       selectedRegionData,
       () => {
         pieChart.value.data.labels = [];
+        selectedDatasets.value[0].backgroundColor = [];
+        selectedDatasets.value[0].data = [];
         selectedRegionData.value.forEach((a) => {
           pieChart.value.data.labels.push(a.name);
-          selectedDatasets.value[0].backgroundColor = [a.color];
+          selectedDatasets.value[0].backgroundColor.push(a.color);
+          selectedDatasets.value[0].data.push(datasets.value[0].data[a.number]);
         });
         pieChart.value.data.datasets = selectedDatasets.value;
         console.log(pieChart.value);
@@ -100,6 +104,7 @@ export default {
         datasets: datasets.value,
       },
     });
+    console.log(pieChart.value);
 
     // sort buttons
     let sortedByNewCase = () => {
