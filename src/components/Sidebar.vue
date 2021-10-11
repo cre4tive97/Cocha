@@ -5,16 +5,16 @@
         정렬
       </h1>
       <div class="sidebar__sortBtnGroup" v-show="sortBtnState">
-        <button class="btn" @click="$emit('sortedByNewCase')">
+        <button class="btn" @click="$emit('newCase')">
           신규 확진자
         </button>
-        <button class="btn" @click="$emit('sortedByTotalCase')">
+        <button class="btn" @click="$emit('totalCase')">
           전체 확진자
         </button>
-        <button class="btn" @click="$emit('sortedByRecovered')">
+        <button class="btn" @click="$emit('recovered')">
           전체 회복자
         </button>
-        <button class="btn" @click="$emit('sortedByDeath')">
+        <button class="btn" @click="$emit('death')">
           전체 사망자
         </button>
       </div>
@@ -27,7 +27,20 @@
         지역
       </h1>
       <div class="sidebar__region__selected" v-show="regionBtnState">
-        선택됨 :
+        <p>선택됨 :</p>
+        <div
+          class="sidebar__region__content__name"
+          v-for="(a, i) in selectedRegionData"
+          :key="i"
+        >
+          <div
+            class="sidebar__region__content__color"
+            :style="{
+              backgroundColor: selectedRegionData[i].color,
+            }"
+          ></div>
+          {{ a.name }}
+        </div>
       </div>
       <div class="sidebar__region__content" v-show="regionBtnState">
         <div
@@ -50,30 +63,31 @@
 import { ref, toRefs } from "vue";
 export default {
   name: "Sidebar",
-  emits: ["regionSelect"],
+  emits: ["regionSelect", "newCase", "totalCase", "recovered", "death"],
   props: {
     country: Array,
     datasets: Array,
+    selectedRegionData: Array,
   },
   setup(props, { emit }) {
     let sortBtnState = ref(false);
     let regionBtnState = ref(false);
+
     let { country, datasets } = toRefs(props);
     console.log(country.value);
     console.log(datasets.value);
-    let selectedRegionData = ref([]);
-    let selectedRegionCheck = ref(false);
     let regionClick = (e) => {
-      selectedRegionData.value.push(e.target.childNodes[1].data);
-      console.log(selectedRegionData.value);
-      emit("regionSelect", selectedRegionData.value);
+      console.log(e.target.childNodes[0].style.backgroundColor);
+      emit("regionSelect", {
+        name: e.target.childNodes[1].data.trim(),
+        color: e.target.childNodes[0].style.backgroundColor,
+      });
     };
+
     return {
       sortBtnState,
       regionBtnState,
       regionClick,
-      selectedRegionData,
-      selectedRegionCheck,
     };
   },
 };
@@ -125,7 +139,7 @@ export default {
   color: white;
   padding: 4px 8px;
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   margin: 4px 0;
   transition: background 0.3s;
 }
@@ -154,16 +168,14 @@ export default {
   background: rgba(0, 0, 0, 0.8);
 }
 .sidebar__region__content__color {
-  width: 12px;
-  height: 12px;
+  width: 0.75rem;
+  height: 0.75rem;
   border-radius: 50%;
-  background: red;
   margin-right: 4px;
 }
 .sidebar__region__selected {
-  margin: 0.3rem 0;
   display: flex;
-  flex-direction: row;
+  align-items: center;
   flex-wrap: wrap;
 }
 </style>

@@ -11,10 +11,11 @@
         v-show="sidebarState"
         :datasets="datasets"
         :country="country"
-        @sortedByNewCase="sortedByNewCase"
-        @sortedByTotalCase="sortedByTotalCase"
-        @sortedByRecovered="sortedByRecovered"
-        @sortedByDeath="sortedByDeath"
+        :selectedRegionData="selectedRegionData"
+        @newCase="sortedByNewCase"
+        @totalCase="sortedByTotalCase"
+        @recovered="sortedByRecovered"
+        @death="sortedByDeath"
         @regionSelect="regionSelect"
       />
     </transition>
@@ -38,6 +39,7 @@ export default {
     let country = ref([]);
     let componentKey = ref(0);
     let sidebarState = ref(false);
+    let selectedRegionData = ref([]);
     let datasets = ref([
       {
         backgroundColor: [
@@ -104,8 +106,18 @@ export default {
       componentKey.value++;
     };
 
-    let regionSelect = () => {
-      pieChart.value.data.labels = [];
+    let regionSelect = (a) => {
+      let selectedData = a;
+      if (selectedRegionData.value.includes(selectedData) === false) {
+        selectedRegionData.value.push(selectedData);
+        console.log(selectedRegionData.value.includes(selectedData));
+      } else {
+        let removedSelectedRegionData = selectedRegionData.value.filter(
+          (el) => el.name !== a.name
+        );
+        console.log(removedSelectedRegionData);
+        selectedRegionData.value = removedSelectedRegionData;
+      }
       componentKey.value++;
     };
 
@@ -166,6 +178,7 @@ export default {
       sortedByDeath,
       sidebarState,
       regionSelect,
+      selectedRegionData,
     };
   },
 };
