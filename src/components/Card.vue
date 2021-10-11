@@ -102,8 +102,6 @@ export default {
             );
           });
           pieChart.value.data.datasets = selectedDatasets.value;
-          console.log(pieChart.value);
-          console.log(selectedDatasets.value[0]);
         }
       },
       { deep: true }
@@ -117,43 +115,82 @@ export default {
         datasets: datasets.value,
       },
     });
-    console.log(pieChart.value);
 
     // sort buttons
     let sortedByNewCase = () => {
-      datasets.value[0].data = [];
-      country.value.forEach((a) => {
-        datasets.value[0].data.push(stringNumberToInt(a.newCase));
-      });
+      if (selectedRegionData.value.length === 0) {
+        datasets.value[0].data = [];
+        country.value.forEach((a) => {
+          datasets.value[0].data.push(stringNumberToInt(a.newCase));
+        });
+      } else {
+        let newCaseCounter = [];
+        selectedRegionData.value.forEach((a) => {
+          newCaseCounter.push(
+            stringNumberToInt(country.value[a.number].newCase)
+          );
+        });
+        selectedDatasets.value[0].data = [...newCaseCounter];
+      }
       sortCounter.value = 0;
       componentKey.value++;
     };
 
     let sortedByTotalCase = () => {
-      datasets.value[0].data = [];
-      country.value.forEach((a) => {
-        datasets.value[0].data.push(stringNumberToInt(a.totalCase));
-      });
+      if (selectedRegionData.value.length === 0) {
+        datasets.value[0].data = [];
+        country.value.forEach((a) => {
+          datasets.value[0].data.push(stringNumberToInt(a.totalCase));
+        });
+      } else {
+        let totalCaseCounter = [];
+        selectedRegionData.value.forEach((a) => {
+          totalCaseCounter.push(
+            stringNumberToInt(country.value[a.number].totalCase)
+          );
+        });
+        selectedDatasets.value[0].data = [...totalCaseCounter];
+      }
       sortCounter.value = 1;
       componentKey.value++;
     };
 
     let sortedByRecovered = () => {
-      datasets.value[0].data = [];
-      country.value.forEach((a) => {
-        datasets.value[0].data.push(stringNumberToInt(a.recovered));
-      });
+      if (selectedRegionData.value.length === 0) {
+        datasets.value[0].data = [];
+        country.value.forEach((a) => {
+          datasets.value[0].data.push(stringNumberToInt(a.recovered));
+        });
+      } else {
+        let recoveredCaseCounter = [];
+        selectedRegionData.value.forEach((a) => {
+          recoveredCaseCounter.push(
+            stringNumberToInt(country.value[a.number].recovered)
+          );
+        });
+        selectedDatasets.value[0].data = [...recoveredCaseCounter];
+      }
       sortCounter.value = 2;
       componentKey.value++;
     };
 
     let sortedByDeath = () => {
-      datasets.value[0].data = [];
-      country.value.forEach((a) => {
-        datasets.value[0].data.push(stringNumberToInt(a.death));
-      });
-      sortCounter.value = 3;
+      if (selectedRegionData.value.length === 0) {
+        datasets.value[0].data = [];
+        country.value.forEach((a) => {
+          datasets.value[0].data.push(stringNumberToInt(a.death));
+        });
+      } else {
+        let deathCaseCounter = [];
+        selectedRegionData.value.forEach((a) => {
+          deathCaseCounter.push(
+            stringNumberToInt(country.value[a.number].death)
+          );
+        });
+        selectedDatasets.value[0].data = [...deathCaseCounter];
+      }
       componentKey.value++;
+      sortCounter.value = 3;
     };
 
     let regionSelect = (payload) => {
