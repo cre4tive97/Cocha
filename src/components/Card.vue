@@ -82,20 +82,33 @@ export default {
     watch(
       selectedRegionData,
       () => {
-        pieChart.value.data.labels = [];
-        selectedDatasets.value[0].backgroundColor = [];
-        selectedDatasets.value[0].data = [];
-        selectedRegionData.value.forEach((a) => {
-          pieChart.value.data.labels.push(a.name);
-          selectedDatasets.value[0].backgroundColor.push(a.color);
-          selectedDatasets.value[0].data.push(datasets.value[0].data[a.number]);
-        });
-        pieChart.value.data.datasets = selectedDatasets.value;
-        console.log(pieChart.value);
-        console.log(selectedDatasets.value[0]);
+        if (selectedRegionData.value.length === 0) {
+          let newName = [];
+          // let newCounter = []
+          country.value.forEach((a) => {
+            newName.push(a.countryName);
+            pieChart.value.data.datasets = datasets.value;
+          });
+          pieChart.value.data.labels = newName;
+        } else {
+          pieChart.value.data.labels = [];
+          selectedDatasets.value[0].backgroundColor = [];
+          selectedDatasets.value[0].data = [];
+          selectedRegionData.value.forEach((a) => {
+            pieChart.value.data.labels.push(a.name);
+            selectedDatasets.value[0].backgroundColor.push(a.color);
+            selectedDatasets.value[0].data.push(
+              datasets.value[0].data[a.number]
+            );
+          });
+          pieChart.value.data.datasets = selectedDatasets.value;
+          console.log(pieChart.value);
+          console.log(selectedDatasets.value[0]);
+        }
       },
       { deep: true }
     );
+    console.log(country.value);
 
     const pieChart = ref({
       type: "doughnut",
@@ -242,6 +255,7 @@ export default {
 .card-chart {
   width: 60%;
   min-width: 320px;
+  max-width: 700px;
 }
 .chart__setting {
   position: fixed;
