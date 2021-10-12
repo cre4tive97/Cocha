@@ -5,7 +5,6 @@
 </template>
 <script>
 import { ref, onMounted } from "vue";
-// import { useStore } from "vuex";
 import Card from "../components/Card.vue";
 import axios from "axios";
 

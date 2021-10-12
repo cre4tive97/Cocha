@@ -1,7 +1,10 @@
 <template>
   <header class="app__header">
     <nav class="app__navbar">
-      <h1 class="app__navbar__title">Daily Covid-19 Status</h1>
+      <div class="app__navbar__left">
+        <img class="app__navbar__logo" src="./assets/logo.png" alt="logo" />
+        <h1 class="app__navbar__title">차트로 보는 코로나 현황</h1>
+      </div>
       <p>v1.0.0</p>
     </nav>
   </header>
@@ -23,7 +26,7 @@ export default {
   color: black;
 }
 .app__header {
-  padding: 16px 8px;
+  padding: 8px 16px;
   background: #005ecb;
   color: white;
 }
@@ -32,7 +35,15 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
+.app__navbar__left {
+  display: flex;
+  align-items: center;
+}
 .app__navbar__title {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+}
+.app__navbar__logo {
+  width: 40px;
+  margin-right: 1rem;
 }
 </style>
