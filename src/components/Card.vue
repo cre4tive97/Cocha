@@ -88,7 +88,6 @@ export default {
       () => {
         if (selectedRegionData.value.length === 0) {
           let newName = [];
-          // let newCounter = []
           country.value.forEach((a) => {
             newName.push(a.countryName);
             pieChart.value.data.datasets = datasets.value;
@@ -102,10 +101,14 @@ export default {
             pieChart.value.data.labels.push(a.name);
             selectedDatasets.value[0].backgroundColor.push(a.color);
             selectedDatasets.value[0].data.push(
-              datasets.value[0].data[a.number]
+              stringNumberToInt(
+                country.value[a.number][
+                  Object.keys(sortName.value[sortCounter.value]).toString()
+                ]
+              )
             );
           });
-          pieChart.value.data.datasets = selectedDatasets.value;
+          pieChart.value.data.datasets = selectedDatasets.value; //!!!
         }
       },
       { deep: true }
