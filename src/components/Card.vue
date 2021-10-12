@@ -227,6 +227,9 @@ export default {
           datasets.value[0].data = counter;
           pieChart.value.data.labels = name;
           componentKey.value++;
+        })
+        .catch((err) => {
+          console.log("에러 :", err);
         });
     });
 

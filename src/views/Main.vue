@@ -24,6 +24,9 @@ export default {
         )
         .then((result) => {
           korea.value = result.data.korea;
+        })
+        .catch((err) => {
+          console.log("에러 :", err);
         });
     });
     return {
