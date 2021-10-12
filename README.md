@@ -30,7 +30,7 @@ Cocha - 차트로 보는 코로나 현황
 #### Chart
 
 - 굿바이코로나 API를 사용해 제작되었습니다. [문서](https://github.com/dhlife09/Corona-19-API)
-- Vue3 ChartJS Wrapper[링크](https://github.com/J-T-McC/vue3-chartjs)를 사용했습니다.
+- [Vue3 ChartJS Wrapper](https://github.com/J-T-McC/vue3-chartjs)를 사용했습니다.
 
 #### Sidebar sort buttons
 
