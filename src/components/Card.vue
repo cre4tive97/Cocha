@@ -17,7 +17,8 @@
         @totalCase="sortedByTotalCase"
         @recovered="sortedByRecovered"
         @death="sortedByDeath"
-        @regionSelect="regionSelect"
+        @regionSelect="regionManage"
+        @selectedRegionClick="selectedRegionClick"
       />
     </transition>
   </div>
@@ -142,17 +143,33 @@ export default {
 
     let sortedByDeath = () => manageSortFunction("totalCase", 3);
 
-    let regionSelect = (payload) => {
+    // select & remove function
+
+    let regionRemove = (payload) => {
+      let filteredRegionData = selectedRegionData.value.filter(
+        (el) => el.name !== payload.name
+      );
+      selectedRegionData.value = filteredRegionData;
+    };
+
+    let regionManage = (payload) => {
       let result = selectedRegionData.value.find(
         (el) => el.name === payload.name
       );
       if (result === undefined) {
         selectedRegionData.value.push(payload);
       } else {
-        let filteredRegionData = selectedRegionData.value.filter(
-          (el) => el.name !== payload.name
-        );
-        selectedRegionData.value = filteredRegionData;
+        regionRemove(payload);
+      }
+      componentKey.value++;
+    };
+
+    let selectedRegionClick = (payload) => {
+      let result = selectedRegionData.value.find(
+        (el) => el.name === payload.name
+      );
+      if (result !== undefined) {
+        regionRemove(payload);
       }
       componentKey.value++;
     };
@@ -213,12 +230,14 @@ export default {
       sortedByRecovered,
       sortedByDeath,
       sidebarState,
-      regionSelect,
+      regionManage,
       selectedRegionData,
       sortName,
       sortCounter,
       selectedDatasets,
       manageSortFunction,
+      selectedRegionClick,
+      regionRemove,
     };
   },
 };
