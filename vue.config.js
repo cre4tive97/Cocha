@@ -1,4 +1,4 @@
-module.export = {
-    publicPath : '/cocha19',
-    outputDir : 'docs'
+module.exports = {
+    publicPath: '/cocha',
+    outputDir: 'docs'
 }
