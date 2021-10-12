@@ -1,5 +1,5 @@
 <center>
-![logo](./public/logo.png){: width="250" height="250"}
+<img src="./public/logo.png", width="250" height="250">
 
 ![vue](https://img.shields.io/badge/Vue.js-%5E3.0.0-green)
 ![vuex](https://img.shields.io/badge/Vuex-%5E4.0.2-brightgreen)
