@@ -106,7 +106,6 @@ export default {
       },
       { deep: true }
     );
-    console.log(country.value);
 
     const pieChart = ref({
       type: "doughnut",
@@ -135,21 +134,13 @@ export default {
       componentKey.value++;
     };
 
-    let sortedByNewCase = () => {
-      manageSortFunction("newCase", 0);
-    };
+    let sortedByNewCase = () => manageSortFunction("newCase", 0);
 
-    let sortedByTotalCase = () => {
-      manageSortFunction("totalCase", 1);
-    };
+    let sortedByTotalCase = () => manageSortFunction("totalCase", 1);
 
-    let sortedByRecovered = () => {
-      manageSortFunction("recovered", 2);
-    };
+    let sortedByRecovered = () => manageSortFunction("recovered", 2);
 
-    let sortedByDeath = () => {
-      manageSortFunction("totalCase", 3);
-    };
+    let sortedByDeath = () => manageSortFunction("totalCase", 3);
 
     let regionSelect = (payload) => {
       let result = selectedRegionData.value.find(
@@ -243,8 +234,8 @@ export default {
   align-items: center;
 }
 .card__chartName {
-  font-size: 2rem;
-  font-weight: 300;
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 .card-chart {
   width: 100%;
