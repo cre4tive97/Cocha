@@ -47,7 +47,7 @@
           class="sidebar__region__unselect"
           @click="$emit('removeAllClick')"
         >
-          전체 삭제
+          <i class="far fa-trash-alt"></i>
         </button>
       </div>
       <div
@@ -119,7 +119,7 @@ export default {
   backdrop-filter: blur(16px);
   width: 30%;
   max-width: 400px;
-  min-width: 200px;
+  min-width: 250px;
   padding: 1rem;
   border-radius: 0.5rem;
   z-index: 5;
@@ -198,7 +198,7 @@ export default {
 }
 .sidebar__region__unselect {
   padding: 4px 8px;
-  font-size: 0.75rem;
+  font-size: 1.5rem;
   position: absolute;
   right: 1.5rem;
   background: rgba(2, 93, 203, 0.5);
