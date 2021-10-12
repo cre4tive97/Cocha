@@ -1,13 +1,4 @@
 <template>
-  <!-- <div class="main__container">
-    <div class="main__todayCovid">
-      <h1 class="main__todayCovid__title">오늘 한국은..</h1>
-      <h4 class="main__todayCovid__content">
-        신규 확진자 : {{ korea.newCase }}명
-      </h4>
-    </div>
-    <hr />
-  </div> -->
   <div class="main__container">
     <Card />
   </div>
@@ -47,24 +38,5 @@ export default {
 .main__container {
   margin: 0 1rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.main__todayCovid {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-.main__todayCovid__title {
-  margin-top: 1rem;
-  font-size: 2rem;
-  font-weight: 100;
-  margin-bottom: 0.5rem;
-}
-.main__todayCovid__content {
-  font-size: 1rem;
-  font-weight: 100;
 }
 </style>
