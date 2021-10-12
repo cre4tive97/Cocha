@@ -41,6 +41,12 @@
           ></div>
           {{ a.name }}
         </div>
+        <button
+          v-show="selectedRegionData[0] !== undefined"
+          class="sidebar__region__unselect"
+        >
+          전체 삭제
+        </button>
       </div>
       <hr v-show="selectedRegionData[0] !== undefined && regionBtnState" />
       <div class="sidebar__region__content" v-show="regionBtnState">
@@ -175,5 +181,21 @@ export default {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  width: 80%;
+}
+.sidebar__region__unselect {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  position: absolute;
+  right: 1.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  border-style: none;
+  color: white;
+  transition: background 0.3s;
+}
+.sidebar__region__unselect:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.8);
 }
 </style>

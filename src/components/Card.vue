@@ -117,80 +117,38 @@ export default {
     });
 
     // sort buttons
-    let sortedByNewCase = () => {
+
+    let manageSortFunction = (sortcase, number) => {
       if (selectedRegionData.value.length === 0) {
         datasets.value[0].data = [];
         country.value.forEach((a) => {
-          datasets.value[0].data.push(stringNumberToInt(a.newCase));
+          datasets.value[0].data.push(stringNumberToInt(a[sortcase]));
         });
       } else {
-        let newCaseCounter = [];
+        let Counter = [];
         selectedRegionData.value.forEach((a) => {
-          newCaseCounter.push(
-            stringNumberToInt(country.value[a.number].newCase)
-          );
+          Counter.push(stringNumberToInt(country.value[a.number][sortcase]));
         });
-        selectedDatasets.value[0].data = [...newCaseCounter];
+        selectedDatasets.value[0].data = [...Counter];
       }
-      sortCounter.value = 0;
+      sortCounter.value = number;
       componentKey.value++;
+    };
+
+    let sortedByNewCase = () => {
+      manageSortFunction("newCase", 0);
     };
 
     let sortedByTotalCase = () => {
-      if (selectedRegionData.value.length === 0) {
-        datasets.value[0].data = [];
-        country.value.forEach((a) => {
-          datasets.value[0].data.push(stringNumberToInt(a.totalCase));
-        });
-      } else {
-        let totalCaseCounter = [];
-        selectedRegionData.value.forEach((a) => {
-          totalCaseCounter.push(
-            stringNumberToInt(country.value[a.number].totalCase)
-          );
-        });
-        selectedDatasets.value[0].data = [...totalCaseCounter];
-      }
-      sortCounter.value = 1;
-      componentKey.value++;
+      manageSortFunction("totalCase", 1);
     };
 
     let sortedByRecovered = () => {
-      if (selectedRegionData.value.length === 0) {
-        datasets.value[0].data = [];
-        country.value.forEach((a) => {
-          datasets.value[0].data.push(stringNumberToInt(a.recovered));
-        });
-      } else {
-        let recoveredCaseCounter = [];
-        selectedRegionData.value.forEach((a) => {
-          recoveredCaseCounter.push(
-            stringNumberToInt(country.value[a.number].recovered)
-          );
-        });
-        selectedDatasets.value[0].data = [...recoveredCaseCounter];
-      }
-      sortCounter.value = 2;
-      componentKey.value++;
+      manageSortFunction("recovered", 2);
     };
 
     let sortedByDeath = () => {
-      if (selectedRegionData.value.length === 0) {
-        datasets.value[0].data = [];
-        country.value.forEach((a) => {
-          datasets.value[0].data.push(stringNumberToInt(a.death));
-        });
-      } else {
-        let deathCaseCounter = [];
-        selectedRegionData.value.forEach((a) => {
-          deathCaseCounter.push(
-            stringNumberToInt(country.value[a.number].death)
-          );
-        });
-        selectedDatasets.value[0].data = [...deathCaseCounter];
-      }
-      componentKey.value++;
-      sortCounter.value = 3;
+      manageSortFunction("totalCase", 3);
     };
 
     let regionSelect = (payload) => {
@@ -269,6 +227,7 @@ export default {
       sortName,
       sortCounter,
       selectedDatasets,
+      manageSortFunction,
     };
   },
 };
@@ -279,20 +238,18 @@ export default {
   height: 100%;
   padding: 1rem 0;
   border-radius: 1rem;
-  /* background: #eee; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* box-shadow: 0 0 25px rgba(0, 0, 0, 0.3); */
 }
 .card__chartName {
   font-size: 2rem;
   font-weight: 300;
 }
 .card-chart {
-  width: 60%;
-  min-width: 320px;
-  max-width: 700px;
+  width: 100%;
+  min-width: 280px;
+  max-width: 80vh;
 }
 .chart__setting {
   position: fixed;
