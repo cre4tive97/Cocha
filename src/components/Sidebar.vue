@@ -50,7 +50,10 @@
           전체 삭제
         </button>
       </div>
-      <hr v-show="selectedRegionData[0] !== undefined && regionBtnState" />
+      <div
+        class="sidebar__line"
+        v-show="selectedRegionData[0] !== undefined && regionBtnState"
+      ></div>
       <div class="sidebar__region__content" v-show="regionBtnState">
         <div
           class="sidebar__region__content__name"
@@ -112,7 +115,7 @@ export default {
   position: fixed;
   bottom: 4rem;
   left: 1rem;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(2, 93, 203, 0.4);
   backdrop-filter: blur(16px);
   width: 30%;
   max-width: 400px;
@@ -140,7 +143,7 @@ export default {
 .sidebar__sort,
 .sidebar__region {
   color: white;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(2, 93, 203, 0.6);
   border-radius: 0.5rem;
   padding: 0.5rem;
 }
@@ -153,13 +156,13 @@ export default {
   color: white;
   padding: 4px 8px;
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(2, 93, 203, 0.5);
   margin: 4px 0;
   transition: background 0.3s;
 }
 .btn:hover {
   cursor: pointer;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(2, 93, 203, 0.9);
 }
 .sidebar__region__content {
   display: flex;
@@ -169,7 +172,7 @@ export default {
 }
 .sidebar__region__content__name {
   padding: 4px 8px;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(2, 93, 203, 0.5);
   border-radius: 4px;
   margin: 4px;
   font-size: 0.75rem;
@@ -179,7 +182,7 @@ export default {
 }
 .sidebar__region__content__name:hover {
   cursor: pointer;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(2, 93, 203, 0.9);
 }
 .sidebar__region__content__color {
   width: 0.75rem;
@@ -198,7 +201,7 @@ export default {
   font-size: 0.75rem;
   position: absolute;
   right: 1.5rem;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(2, 93, 203, 0.5);
   border-radius: 4px;
   border-style: none;
   color: white;
@@ -206,6 +209,12 @@ export default {
 }
 .sidebar__region__unselect:hover {
   cursor: pointer;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(2, 93, 203, 0.9);
+}
+.sidebar__line {
+  width: 100%;
+  height: 1px;
+  background: rgba(2, 93, 203, 0.9);
+  margin: 4px 0;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <h2 class="card__chartName">
-      {{ Object.values(sortName[sortCounter]).toString() }}
+      {{ Object.values(sortName[sortCounter]).toString() }} 차트
     </h2>
     <div class="card-chart">
       <vue3-chart-js v-bind="{ ...pieChart }" :key="componentKey" />
@@ -265,8 +265,13 @@ export default {
   align-items: center;
 }
 .card__chartName {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 500;
+  background: rgba(2, 93, 203, 1);
+  padding: 4px 8px;
+  color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 .card-chart {
   width: 100%;
@@ -285,13 +290,13 @@ export default {
   align-items: center;
   width: 2.5rem;
   height: 2.5rem;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(2, 93, 203, 0.6);
   border-radius: 50%;
   transition: all 0.3s;
 }
 .chart__setting:hover {
   transform: scale(1.1);
-  color: black;
+  color: rgba(2, 93, 203, 1);
   cursor: pointer;
 }
 .sidebarAnimation-enter-from {

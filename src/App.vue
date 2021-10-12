@@ -9,6 +9,12 @@
     </nav>
   </header>
   <router-view></router-view>
+  <footer class="app__footer">
+    <p>
+      Cocha developed by
+      <a href="github.com/cre4tive97">@cre4tive97</a>
+    </p>
+  </footer>
 </template>
 
 <script>
@@ -45,5 +51,18 @@ export default {
 .app__navbar__logo {
   width: 40px;
   margin-right: 1rem;
+}
+.app__footer {
+  position: fixed;
+  bottom: 4px;
+  font-size: 0.75rem;
+  right: 4px;
+  font-weight: 500;
+  display: flex;
+  color: black;
+}
+.app__footer a {
+  color: black;
+  text-decoration: none;
 }
 </style>
