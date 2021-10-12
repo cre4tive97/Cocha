@@ -1,6 +1,8 @@
 <template>
   <div class="card">
-    <h2 class="card__chartName">{{ sortName[sortCounter] }}</h2>
+    <h2 class="card__chartName">
+      {{ Object.values(sortName[sortCounter]).toString() }}
+    </h2>
     <div class="card-chart">
       <vue3-chart-js v-bind="{ ...pieChart }" :key="componentKey" />
     </div>
@@ -19,6 +21,7 @@
         @death="sortedByDeath"
         @regionSelect="regionManage"
         @selectedRegionClick="selectedRegionClick"
+        @removeAllClick="removeAllClick"
       />
     </transition>
   </div>
@@ -43,10 +46,10 @@ export default {
     let sidebarState = ref(false);
     let selectedRegionData = ref([]);
     let sortName = ref([
-      "신규 확진자",
-      "전체 확진자",
-      "전체 회복자",
-      "전체 사망자",
+      { newCase: "신규 확진자" },
+      { totalCase: "전체 확진자" },
+      { recovered: "전체 회복자" },
+      { death: "전체 사망자" },
     ]);
     let sortCounter = ref(0);
     let datasets = ref([
@@ -136,12 +139,9 @@ export default {
     };
 
     let sortedByNewCase = () => manageSortFunction("newCase", 0);
-
     let sortedByTotalCase = () => manageSortFunction("totalCase", 1);
-
     let sortedByRecovered = () => manageSortFunction("recovered", 2);
-
-    let sortedByDeath = () => manageSortFunction("totalCase", 3);
+    let sortedByDeath = () => manageSortFunction("death", 3);
 
     // select & remove function
 
@@ -162,6 +162,14 @@ export default {
         regionRemove(payload);
       }
       componentKey.value++;
+    };
+
+    let removeAllClick = () => {
+      selectedRegionData.value = [];
+      manageSortFunction(
+        Object.keys(sortName.value[sortCounter.value]).toString(),
+        sortCounter.value
+      );
     };
 
     let selectedRegionClick = (payload) => {
@@ -238,6 +246,7 @@ export default {
       manageSortFunction,
       selectedRegionClick,
       regionRemove,
+      removeAllClick,
     };
   },
 };

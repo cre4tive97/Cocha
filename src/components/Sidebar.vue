@@ -45,6 +45,7 @@
         <button
           v-show="selectedRegionData[0] !== undefined"
           class="sidebar__region__unselect"
+          @click="$emit('removeAllClick')"
         >
           전체 삭제
         </button>
