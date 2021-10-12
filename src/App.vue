@@ -12,7 +12,7 @@
   <footer class="app__footer">
     <p>
       Cocha developed by
-      <a href="github.com/cre4tive97">@cre4tive97</a>
+      <a href="https://github.com/cre4tive97/Cocha">@cre4tive97</a>
     </p>
   </footer>
 </template>
