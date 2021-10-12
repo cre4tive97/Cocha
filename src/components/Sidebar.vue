@@ -198,7 +198,7 @@ export default {
 }
 .sidebar__region__unselect {
   padding: 4px 8px;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   position: absolute;
   right: 1.5rem;
   background: rgba(2, 93, 203, 0.5);
