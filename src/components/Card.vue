@@ -164,14 +164,6 @@ export default {
       componentKey.value++;
     };
 
-    let removeAllClick = () => {
-      selectedRegionData.value = [];
-      manageSortFunction(
-        Object.keys(sortName.value[sortCounter.value]).toString(),
-        sortCounter.value
-      );
-    };
-
     let selectedRegionClick = (payload) => {
       let result = selectedRegionData.value.find(
         (el) => el.name === payload.name
@@ -180,6 +172,14 @@ export default {
         regionRemove(payload);
       }
       componentKey.value++;
+    };
+
+    let removeAllClick = () => {
+      selectedRegionData.value = [];
+      manageSortFunction(
+        Object.keys(sortName.value[sortCounter.value]).toString(),
+        sortCounter.value
+      );
     };
 
     let stringNumberToInt = (stringNumber) => {
