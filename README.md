@@ -2,7 +2,6 @@
 <img src="./public/logo.png", width="250" height="250">
 
 ![vue](https://img.shields.io/badge/Vue.js-%5E3.0.0-green)
-![vuex](https://img.shields.io/badge/Vuex-%5E4.0.2-brightgreen)
 
 Cocha - 차트로 보는 코로나 현황 [Demo](https://cre4tive97.github.io/Cocha/#/)
 
