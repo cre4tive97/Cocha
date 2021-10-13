@@ -4,7 +4,8 @@
 ![vue](https://img.shields.io/badge/Vue.js-%5E3.0.0-green)
 ![vuex](https://img.shields.io/badge/Vuex-%5E4.0.2-brightgreen)
 
-Cocha - 차트로 보는 코로나 현황 [Demo](https://cre4tive97.github.io/Cocha/#/) 
+Cocha - 차트로 보는 코로나 현황 [Demo](https://cre4tive97.github.io/Cocha/#/)
+
 </div>
 
 ## 🧷 Features
@@ -31,6 +32,7 @@ Cocha - 차트로 보는 코로나 현황 [Demo](https://cre4tive97.github.io/Co
 
 - 굿바이코로나 API를 사용해 제작되었습니다. [문서](https://github.com/dhlife09/Corona-19-API)
 - [Vue3 ChartJS Wrapper](https://github.com/J-T-McC/vue3-chartjs)를 사용했습니다.
+- 정렬이나 지역을 선택/해제 하면 차트만 Re-rendering 되게끔 componentKey로 관리했습니다.
 
 #### Sidebar sort buttons
 
