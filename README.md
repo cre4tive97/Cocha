@@ -3,7 +3,9 @@
 
 ![vue](https://img.shields.io/badge/Vue.js-%5E3.0.0-green)
 
-Cocha - 차트로 보는 코로나 현황 [Demo](https://cre4tive97.github.io/Cocha/#/)
+Cocha - 차트로 보는 코로나 현황
+
+[Demo](https://cre4tive97.github.io/Cocha/#/)
 
 </div>
 
