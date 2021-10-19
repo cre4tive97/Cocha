@@ -3,7 +3,7 @@
     <div class="intro__container">
       <div class="intro__todayCovid">
         <h1 class="intro__todayCovid__title">오늘 한국은..</h1>
-        <h4 class="intro__todayCovid__content">
+        <h4 class="intro__todayCovid__newCase">
           신규 확진자 : {{ korea.newCase }}명
         </h4>
         <button class="intro__todayCovid__btn" @click="getStarted">
@@ -78,7 +78,7 @@ export default {
   margin-bottom: 1rem;
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
-.intro__todayCovid__content {
+.intro__todayCovid__newCase {
   font-size: 2rem;
   font-weight: 100;
   margin-bottom: 1rem;
@@ -108,7 +108,7 @@ export default {
     margin-bottom: 1rem;
     text-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   }
-  .intro__todayCovid__content {
+  .intro__todayCovid__newCase {
     font-size: 1.2rem;
     font-weight: 100;
     margin-bottom: 1rem;
